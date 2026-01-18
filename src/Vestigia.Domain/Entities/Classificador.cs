@@ -7,6 +7,8 @@ namespace Vestigia.Domain.Entities
 {
     public class Classificador
     {
-        
+        protected Guid Id {get; set;}
+        protected Guid IdTransacao {get; set;}
+        protected string Nome {get; set;}
     }
 }

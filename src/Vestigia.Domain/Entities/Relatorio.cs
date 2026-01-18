@@ -20,5 +20,6 @@ namespace Vestigia.Domain.Entities
         private DateTime DataGeracao {get; set;}
         private TipoRelatorio Tipo {get; set;}
         private string Resumo {get; set;}
+        public virtual Usuario Usuario { get; set; }
     }
 }

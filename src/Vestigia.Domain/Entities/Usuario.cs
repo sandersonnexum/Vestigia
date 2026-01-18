@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Vestigia.Domain.Entities
+ namespace Vestigia.Domain.Entities
 {
     public class Usuario
     {
@@ -23,6 +18,11 @@ namespace Vestigia.Domain.Entities
             Ativo = true;
             DataCriacao = data;
         }
+        public ICollection<Conta> Contas { get; set; }
+        public ICollection<Transacao> Transacoes { get; set; }
+        public ICollection<Alerta> Alertas { get; set; }
+        public ICollection<InsightIA> InsightsIA { get; set; }
+        public ICollection<Relatorio> Relatorios { get; set; }
 
         private Usuario() {}
     }

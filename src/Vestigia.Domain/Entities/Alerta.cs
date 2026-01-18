@@ -9,10 +9,12 @@ namespace Vestigia.Domain.Entities
     public class Alerta
     {
         private Guid Id {get; set;}
+        private Guid IdUsuario {get; set;}
         private string Mensagem {get; set;}
         private TipoAlerta Tipo {get; set;}
         private NivelPrioridade Nivel {get; set;}
         private DateTime DataCriacao {get; set;}
         private bool Lido {get; set;}
+        public virtual Usuario Usuario { get; set; }
     }
 }

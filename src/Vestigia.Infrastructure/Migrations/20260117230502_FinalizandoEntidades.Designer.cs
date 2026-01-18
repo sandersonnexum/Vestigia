@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vestigia.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Vestigia.Infrastructure.Data;
 namespace Vestigia.Infrastructure.Migrations
 {
     [DbContext(typeof(VestigiaContext))]
-    partial class VestigiaContextModelSnapshot : ModelSnapshot
+    [Migration("20260117230502_FinalizandoEntidades")]
+    partial class FinalizandoEntidades
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,9 +34,6 @@ namespace Vestigia.Infrastructure.Migrations
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("IdUsuario")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("Lido")
                         .HasColumnType("bit");
 
@@ -49,32 +49,7 @@ namespace Vestigia.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdUsuario");
-
                     b.ToTable("Alertas");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Categoria", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdUsuario")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Tipo")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdUsuario");
-
-                    b.ToTable("Categorias");
                 });
 
             modelBuilder.Entity("Vestigia.Domain.Entities.Conta", b =>
@@ -85,9 +60,6 @@ namespace Vestigia.Infrastructure.Migrations
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
-
-                    b.Property<Guid>("IdUsuario")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("NomeConta")
                         .IsRequired()
@@ -103,8 +75,6 @@ namespace Vestigia.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdUsuario");
 
                     b.ToTable("Contas");
                 });
@@ -125,9 +95,6 @@ namespace Vestigia.Infrastructure.Migrations
                     b.Property<Guid>("IdEntidadeRelacionada")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdUsuario")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("ModeloOrigem")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -136,8 +103,6 @@ namespace Vestigia.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdUsuario");
 
                     b.ToTable("InsightIAs");
                 });
@@ -155,9 +120,6 @@ namespace Vestigia.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("IdTransacao")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("Pago")
                         .HasColumnType("bit");
 
@@ -169,8 +131,6 @@ namespace Vestigia.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdTransacao");
 
                     b.ToTable("Lembretes");
                 });
@@ -207,10 +167,6 @@ namespace Vestigia.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdCategoria");
-
-                    b.HasIndex("IdConta");
 
                     b.ToTable("Metas");
                 });
@@ -251,33 +207,7 @@ namespace Vestigia.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdUsuario");
-
                     b.ToTable("Relatorios");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Tag", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CorHex")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("IdTransacao")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdTransacao");
-
-                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("Vestigia.Domain.Entities.Transacao", b =>
@@ -293,10 +223,7 @@ namespace Vestigia.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("IdConta")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdUsuario")
+                    b.Property<Guid>("IdLembrete")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
@@ -306,10 +233,6 @@ namespace Vestigia.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdConta");
-
-                    b.HasIndex("IdUsuario");
 
                     b.ToTable("Transacaos");
                 });
@@ -341,155 +264,6 @@ namespace Vestigia.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Alerta", b =>
-                {
-                    b.HasOne("Vestigia.Domain.Entities.Usuario", "Usuario")
-                        .WithMany("Alertas")
-                        .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Categoria", b =>
-                {
-                    b.HasOne("Vestigia.Domain.Entities.Transacao", "Transacao")
-                        .WithMany("Categorias")
-                        .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Transacao");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Conta", b =>
-                {
-                    b.HasOne("Vestigia.Domain.Entities.Usuario", "Usuario")
-                        .WithMany("Contas")
-                        .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.InsightIA", b =>
-                {
-                    b.HasOne("Vestigia.Domain.Entities.Usuario", "Usuario")
-                        .WithMany("InsightsIA")
-                        .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Lembrete", b =>
-                {
-                    b.HasOne("Vestigia.Domain.Entities.Transacao", "Transacao")
-                        .WithMany("Lembretes")
-                        .HasForeignKey("IdTransacao")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Transacao");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Meta", b =>
-                {
-                    b.HasOne("Vestigia.Domain.Entities.Categoria", "Categoria")
-                        .WithMany("Metas")
-                        .HasForeignKey("IdCategoria")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Vestigia.Domain.Entities.Conta", "Conta")
-                        .WithMany("Metas")
-                        .HasForeignKey("IdConta")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Categoria");
-
-                    b.Navigation("Conta");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Relatorio", b =>
-                {
-                    b.HasOne("Vestigia.Domain.Entities.Usuario", "Usuario")
-                        .WithMany("Relatorios")
-                        .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Tag", b =>
-                {
-                    b.HasOne("Vestigia.Domain.Entities.Transacao", "Transacao")
-                        .WithMany("Tags")
-                        .HasForeignKey("IdTransacao")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Transacao");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Transacao", b =>
-                {
-                    b.HasOne("Vestigia.Domain.Entities.Conta", "Conta")
-                        .WithMany("Transacoes")
-                        .HasForeignKey("IdConta")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Vestigia.Domain.Entities.Usuario", "Usuario")
-                        .WithMany("Transacoes")
-                        .HasForeignKey("IdUsuario")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Conta");
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Categoria", b =>
-                {
-                    b.Navigation("Metas");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Conta", b =>
-                {
-                    b.Navigation("Metas");
-
-                    b.Navigation("Transacoes");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Transacao", b =>
-                {
-                    b.Navigation("Categorias");
-
-                    b.Navigation("Lembretes");
-
-                    b.Navigation("Tags");
-                });
-
-            modelBuilder.Entity("Vestigia.Domain.Entities.Usuario", b =>
-                {
-                    b.Navigation("Alertas");
-
-                    b.Navigation("Contas");
-
-                    b.Navigation("InsightsIA");
-
-                    b.Navigation("Relatorios");
-
-                    b.Navigation("Transacoes");
                 });
 #pragma warning restore 612, 618
         }

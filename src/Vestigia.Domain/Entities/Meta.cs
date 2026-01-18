@@ -20,5 +20,7 @@ namespace Vestigia.Domain.Entities
         private DateTime DataInicio {get; set;}
         private DateTime DataFim {get; set;}
         private StatusMeta Status {get; set;}
+        public virtual Categoria Categoria { get; set; }
+        public virtual Conta Conta { get; set; }
     }
 }
