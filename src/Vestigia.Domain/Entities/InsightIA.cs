@@ -15,6 +15,7 @@ namespace Vestigia.Domain.Entities
         private DateTime DataGeracao {get; set;}
         private string ModeloOrigem {get; set;} 
         private string Conteudo {get; set;}
+        private EntidadeRelacionada EntidadeRelacionada {get; set;}
         public virtual Usuario Usuario { get; set; }
     }
 }
