@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vestigia.Domain.Enums;
+using Vestigia.Domain.ValueObjects;
 
 namespace Vestigia.Domain.Entities
 {
     public class Conta
     {
-        private Guid Id {get; set;}
-        private Guid IdUsuario {get; set;}
-        private string NomeConta {get; set;}
-        private decimal Saldo {get; set;}
-        private decimal SaldoInicial {get; set;}
-        private TipoConta Tipo {get; set;}
-        private bool Ativo {get; set;}
+        public Guid Id {get; private set;}
+        public Guid IdUsuario {get; private set;}
+        public Nome NomeConta {get; private set;}
+        public Monetario Saldo {get; private set;}
+        public Monetario SaldoInicial {get; private set;}
+        public string NumeroConta {get; private set;}
+        public TipoConta Tipo {get; private set;}
+        public DateTime DataCriacao {get; private set;}
+
         public virtual Usuario Usuario { get; set; }
         public virtual ICollection<Transacao> Transacoes { get; set; }
-        public virtual ICollection<Meta> Metas { get; set; }
+        public virtual ICollection<LogSaldo> LogSaldos { get; set; }
     }
 }

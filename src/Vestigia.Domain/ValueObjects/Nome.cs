@@ -1,0 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Vestigia.Domain.ValueObjects
+{
+    public record Nome
+    {
+        public string Valor { get; init; }
+
+        public Nome(string valor)
+        {
+            if (string.IsNullOrWhiteSpace(valor))
+                throw new ArgumentException("O nome não pode ser vazio.");
+
+            Valor = valor;
+        }
+    }
+}

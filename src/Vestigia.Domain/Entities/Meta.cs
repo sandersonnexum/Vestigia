@@ -6,21 +6,23 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Vestigia.Domain.Enums;
+using Vestigia.Domain.ValueObjects;
 
 namespace Vestigia.Domain.Entities
 {
     public class Meta
     {
-        private Guid Id {get; set;}
-        private Guid IdCategoria {get; set;}
-        private Guid IdConta {get; set;}
-        private string Descricao {get; set;}
-        private decimal ValorAlvo {get; set;}
-        private decimal ValorAtual {get; set;}
-        private DateTime DataInicio {get; set;}
-        private DateTime DataFim {get; set;}
-        private StatusMeta Status {get; set;}
+        public Guid Id {get; private set;}
+        public Guid IdUsuario {get; private set;}
+        public Guid IdCategoria {get; private set;}
+        public Nome Nome {get; private set;}
+        public string Descricao {get; private set;}
+        public Monetario ValorAlvo {get; private set;}
+        public Monetario ValorAlcancado {get;private set;}
+        public DateTime DataCriacao {get; private set;}
+        public DateTime Prazo {get; private set;}
+        public StatusMeta Status {get; private set;}
         public virtual Categoria Categoria { get; set; }
-        public virtual Conta Conta { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }
