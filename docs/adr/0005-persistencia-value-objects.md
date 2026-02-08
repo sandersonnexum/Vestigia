@@ -1,4 +1,4 @@
-# ADR 0004: Persistência de Value Objects via Owned Entity Types
+# ADR 0005: Persistência de Value Objects via Owned Entity Types
 
 ## Status
 Ativo
