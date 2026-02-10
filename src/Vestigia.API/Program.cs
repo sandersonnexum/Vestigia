@@ -2,12 +2,26 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Vestigia.Infrastructure.Data;
+using Vestigia.Application.UseCases;
+using Vestigia.Domain.Interfaces;
+using Vestigia.Infrastructure.Repositories;
+using Vestigia.Infrastructure.Security;
+using static System.Net.Mime.MediaTypeNames;
+using Vestigia.Application.UseCases.UsuarioUC;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+
 // Controllers
 builder.Services.AddControllers();
+
+// Use Cases
+builder.Services.AddScoped<UsuarioUC>();
+
+// Repositories
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();

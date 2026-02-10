@@ -12,14 +12,14 @@ namespace Vestigia.Domain.Entities
         public bool Ativo {get; private set;}
         public DateTime DataCriacao {get; private set;}
 
-        public Usuario(Nome nomeConta, Email email, string senha, string user, DateTime data)
+        public Usuario(Nome nome, Email email, string senha, string username, bool ativo, DateTime data)
         {
             Id = Guid.NewGuid();
-            Nome = nomeConta;
+            Nome = nome;
             Email = email;
             SenhaHash = senha;
-            Username = user;
-            Ativo = true;
+            Username = username;
+            Ativo = ativo;
             DataCriacao = data;
         }
         public ICollection<Conta> Contas { get; set; }
