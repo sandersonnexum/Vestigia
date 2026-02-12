@@ -13,47 +13,16 @@ validação, imutabilidade e integridade do domínio.
 Durante a implementação dos Use Cases na camada **Application**, foi
 identificado que os construtores dos Value Objects estavam com nível de
 proteção restrito (`private`), impedindo sua instanciação direta fora do
-domínio e gerando o erro:
-
-is inaccessible due to its protection level
+domínio e gerando o erro: is inaccessible due to its protection level
 
 Alterar o construtor para `public` resolveria o problema técnico, porém
 enfraqueceria o encapsulamento e permitiria a criação de objetos
 potencialmente inválidos fora das regras de negócio.
 
-Era necessário manter:
-
--   Proteção das invariantes de domínio\
--   Centralização das validações\
--   Imutabilidade do Value Object\
--   Independência da camada Application em relação às regras internas
-
 ## Decisão
 
-Foi adotado o padrão **Factory Method estático (`Criar`)** para a
+Foi adotado o padrão **Factory Method estático (`Create`)** para a
 construção de Value Objects.
-
-Estrutura definida:
-
-``` csharp
-public class Nome
-{
-    public string Valor { get; }
-
-    private Nome(string valor)
-    {
-        Valor = valor;
-    }
-
-    public static Nome Criar(string valor)
-    {
-        if (string.IsNullOrWhiteSpace(valor))
-            throw new ArgumentException("Nome inválido");
-
-        return new Nome(valor);
-    }
-}
-```
 
 Com essa abordagem:
 
