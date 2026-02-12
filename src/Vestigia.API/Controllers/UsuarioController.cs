@@ -85,7 +85,7 @@ namespace Vestigia.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddUsuario([FromBody] UsuarioDTO.RequestAddUpdate usuario)
+        public async Task<IActionResult> AddUsuario([FromBody] UsuarioDTO.RequestAddUpdateUsuario usuario)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace Vestigia.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUsuario(Guid id, [FromBody] UsuarioDTO.RequestAddUpdate usuario)
+        public async Task<IActionResult> UpdateUsuario(Guid id, [FromBody] UsuarioDTO.RequestAddUpdateUsuario usuario)
         {
             try
             {

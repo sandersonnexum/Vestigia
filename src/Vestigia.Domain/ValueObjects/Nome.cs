@@ -11,10 +11,15 @@ namespace Vestigia.Domain.ValueObjects
 
         public Nome(string valor)
         {
+            Valor = valor;
+        }
+
+        public static Nome Create(string valor)
+        {
             if (string.IsNullOrWhiteSpace(valor))
                 throw new ArgumentException("O nome não pode ser vazio.");
 
-            Valor = valor;
+            return new Nome(valor);
         }
     }
 }

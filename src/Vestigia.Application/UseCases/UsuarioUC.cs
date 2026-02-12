@@ -38,7 +38,7 @@ namespace Vestigia.Application.UseCases.UsuarioUC
             return _usuarioRepository.GetAllAsync();
         }
 
-        public async Task Add(UsuarioDTO.RequestAddUpdate usuario)
+        public async Task Add(UsuarioDTO.RequestAddUpdateUsuario usuario)
         {
             var newUsuario = new Usuario(
                 usuario.Nome,
@@ -51,7 +51,7 @@ namespace Vestigia.Application.UseCases.UsuarioUC
             await _usuarioRepository.AddAsync(newUsuario);
         }
 
-        public async Task Update(Guid id, UsuarioDTO.RequestAddUpdate usuario)
+        public async Task Update(Guid id, UsuarioDTO.RequestAddUpdateUsuario usuario)
         {
             var existingUsuario = await _usuarioRepository.GetByIdAsync(id);
             if (existingUsuario == null)

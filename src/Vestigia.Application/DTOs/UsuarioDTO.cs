@@ -8,7 +8,7 @@ namespace Vestigia.Application.DTOs
 {
     public class UsuarioDTO
     {
-        public class RequestAddUpdate
+        public class RequestAddUpdateUsuario
         {
             public Nome Nome { get; set; }
             public Email Email { get; set; }
@@ -16,6 +16,10 @@ namespace Vestigia.Application.DTOs
             public string Username { get; set; }
             public bool Ativo { get; set; }
             public DateTime DataCriacao { get; set; }
+        }
+
+        public class RequestAddUpdate
+        {
         }
     }
 }

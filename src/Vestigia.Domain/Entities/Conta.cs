@@ -21,5 +21,19 @@ namespace Vestigia.Domain.Entities
         public virtual Usuario Usuario { get; set; }
         public virtual ICollection<Transacao> Transacoes { get; set; }
         public virtual ICollection<LogSaldo> LogSaldos { get; set; }
+
+        public Conta(Guid idUsuario, Nome nomeConta, Monetario saldo, Monetario saldoInicial, string numeroConta, TipoConta tipo)
+        {
+            Id = Guid.NewGuid();
+            IdUsuario = idUsuario;
+            NomeConta = nomeConta;
+            Saldo = saldo;
+            SaldoInicial = saldoInicial;
+            NumeroConta = numeroConta;
+            Tipo = tipo;
+            DataCriacao = DateTime.UtcNow;
+        }
+
+        public Conta() {} 
     }
 }

@@ -8,6 +8,7 @@ using Vestigia.Infrastructure.Repositories;
 using Vestigia.Infrastructure.Security;
 using static System.Net.Mime.MediaTypeNames;
 using Vestigia.Application.UseCases.UsuarioUC;
+using Vestigia.Application.UseCases.ContaUC;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,9 +20,11 @@ builder.Services.AddControllers();
 
 // Use Cases
 builder.Services.AddScoped<UsuarioUC>();
+builder.Services.AddScoped<ContaUC>();
 
 // Repositories
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IContaRepository, ContaRepository>();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
