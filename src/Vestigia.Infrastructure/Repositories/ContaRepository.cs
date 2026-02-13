@@ -18,12 +18,12 @@ namespace Vestigia.Infrastructure.Repositories
 
         public Task<Conta> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Contas.FindAsync(id).AsTask();
         }
 
-        public Task<List<Conta>> GetAllAsync()
+        public Task<List<Conta>> GetAllAsync(Guid idUsuario)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(_context.Contas.Where(c => c.IdUsuario == idUsuario).ToList());
         }
 
         public Task AddAsync(Conta conta)
@@ -40,7 +40,7 @@ namespace Vestigia.Infrastructure.Repositories
         public Task DeleteAsync(Guid id)
         {
             throw new NotImplementedException();
-        }        
-       
+        }
+
     }
 }

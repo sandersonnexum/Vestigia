@@ -9,6 +9,8 @@ namespace Vestigia.Domain.ValueObjects
     {
         public string Valor { get; init; }
 
+        public Email() { }
+
         public Email(string valor)
         {
             if (string.IsNullOrWhiteSpace(valor))

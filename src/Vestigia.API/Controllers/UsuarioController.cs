@@ -29,8 +29,8 @@ namespace Vestigia.API.Controllers
         {
             try
             {
-                var usuario = await _usuarioUC.GetById(id);
-                return Ok(usuario);
+                var response = await _usuarioUC.GetById(id);
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -44,8 +44,8 @@ namespace Vestigia.API.Controllers
         {
             try
             {
-                var usuario = await _usuarioUC.GetByEmail(email);
-                return Ok(usuario);
+                var response = await _usuarioUC.GetByEmail(email);
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -89,8 +89,8 @@ namespace Vestigia.API.Controllers
         {
             try
             {
-                await _usuarioUC.Add(usuario);
-                return Ok(usuario);
+                var response = await _usuarioUC.Add(usuario);
+                return Ok(response);
             }
             catch (Exception ex)
             {

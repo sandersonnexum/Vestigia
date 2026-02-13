@@ -46,18 +46,43 @@ namespace Vestigia.Infrastructure.Repositories
         {
             var email1 = new Email(email);
             var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email1);
-            return Task.FromResult(usuario);
+             var formatUser = new Usuario(
+                usuario.Nome,
+                usuario.Email,
+                usuario.SenhaHash,
+                usuario.Username,
+                usuario.Ativo,
+                usuario.DataCriacao
+            );
+            return Task.FromResult(formatUser);
         }
 
         public Task<Usuario> GetByIdAsync(Guid id)
         {
-            return Task.FromResult(_context.Usuarios.Find(id));
+            var usuario = _context.Usuarios.Find(id);
+             var formatUser = new Usuario(
+                usuario.Nome,
+                usuario.Email,
+                usuario.SenhaHash,
+                usuario.Username,
+                usuario.Ativo,
+                usuario.DataCriacao
+            );
+            return Task.FromResult(formatUser);
         }
 
         public Task<Usuario> GetByUsernameAsync(string username)
         {
             var usuario = _context.Usuarios.FirstOrDefault(u => u.Username == username);
-            return Task.FromResult(usuario);
+            var formatUser = new Usuario(
+                usuario.Nome,
+                usuario.Email,
+                usuario.SenhaHash,
+                usuario.Username,
+                usuario.Ativo,
+                usuario.DataCriacao
+            );
+            return Task.FromResult(formatUser);
         }
 
         public Task UpdateAsync(Usuario usuario)

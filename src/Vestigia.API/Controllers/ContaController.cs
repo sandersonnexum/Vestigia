@@ -20,31 +20,31 @@ namespace Vestigia.API.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetContaById(Guid id)
+        [HttpGet("{idConta}")]
+        public async Task<IActionResult> GetContaById(Guid idConta)
         {
             try
             {
-                var conta = await _contaUC.GetContaByIdAsync(id);
-                if (conta == null)
+                var response = await _contaUC.GetContaByIdAsync(idConta);
+                if (response == null)
                 {
                     return NotFound();
                 }
-                return Ok(conta);
+                return Ok(response);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error retrieving conta with ID {Id}", id);
+                _logger.LogError(ex, "Error retrieving conta with ID {Id}", idConta);
                 return StatusCode(500, "Internal server error");
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllContas()
+        [HttpGet("{idUsuario}/todos")]
+        public async Task<IActionResult> GetAllContas(Guid idUsuario)
         {
             try
             {
-                var contas = await _contaUC.GetAllContasAsync();
+                var contas = await _contaUC.GetAllContasAsync(idUsuario);
                 return Ok(contas);
             }
             catch (Exception ex)

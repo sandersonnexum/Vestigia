@@ -30,5 +30,6 @@ namespace Vestigia.Domain.Entities
         public ICollection<Categoria> Categorias { get; set; }
     
         private Usuario() {}
-    }
+
+        }
 }
