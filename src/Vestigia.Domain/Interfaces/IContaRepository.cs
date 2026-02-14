@@ -9,6 +9,7 @@ namespace Vestigia.Domain.Interfaces
     public interface IContaRepository
     {
         Task<Conta> GetByIdAsync(Guid id);
+        Task<Conta> GetByNumeroAsync(string numero);
         Task<List<Conta>> GetAllAsync(Guid idUsuario);
         Task AddAsync(Conta conta);
         Task UpdateAsync(Conta conta);

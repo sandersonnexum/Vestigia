@@ -39,12 +39,33 @@ namespace Vestigia.API.Controllers
             }
         }
 
+        [HttpGet("{numeroConta}/numero")]
+        public async Task<IActionResult> GetContaByNumero(string numeroConta)
+        {
+            try
+            {
+                var response = await _contaUC.GetContaByNumeroAsync(numeroConta);
+
+                if (response == null)
+                {
+                    return NotFound();
+                }
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving conta with numero {NumeroConta}", numeroConta);
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
         [HttpGet("{idUsuario}/todos")]
         public async Task<IActionResult> GetAllContas(Guid idUsuario)
         {
             try
             {
-                var contas = await _contaUC.GetAllContasAsync(idUsuario);
+                var formatId = new Guid(idUsuario.ToString());
+                var contas = await _contaUC.GetAllContasAsync(formatId);
                 return Ok(contas);
             }
             catch (Exception ex)
@@ -59,8 +80,8 @@ namespace Vestigia.API.Controllers
         {
             try
             {
-    
-                await _contaUC.AddContaAsync(idUsuario, conta);
+                var formatId = new Guid(idUsuario.ToString());
+                await _contaUC.AddContaAsync(formatId, conta);
                 return Ok("Conta adicionada com sucesso");
             }
             catch (Exception ex)
@@ -70,17 +91,13 @@ namespace Vestigia.API.Controllers
             }
         }
 
-        [HttpPut("{id}/{idUsuario}")]
-        public async Task<IActionResult> UpdateConta(Guid id, Guid idUsuario, [FromBody] ContaDTO.RequestAddUpConta conta)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateConta(Guid id, [FromBody] ContaDTO.RequestAddUpConta conta)
         {
          
             try
             {
-                /*if (id != conta.Id)
-                {
-                    return BadRequest("ID mismatch");
-                }*/
-                await _contaUC.UpdateContaAsync(idUsuario, id, conta);
+                await _contaUC.UpdateContaAsync(id, conta);
                 return NoContent();
             }
             catch (Exception ex)
@@ -104,5 +121,6 @@ namespace Vestigia.API.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
     }
 }

@@ -44,45 +44,47 @@ namespace Vestigia.Infrastructure.Repositories
 
         public Task<Usuario> GetByEmailAsync(string email)
         {
-            var email1 = new Email(email);
-            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email1);
-             var formatUser = new Usuario(
-                usuario.Nome,
-                usuario.Email,
-                usuario.SenhaHash,
-                usuario.Username,
-                usuario.Ativo,
-                usuario.DataCriacao
-            );
-            return Task.FromResult(formatUser);
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email.Valor == email);
+            /*var formatUser = new Usuario(
+                usuario.Id,
+               usuario.Nome,
+               usuario.Email,
+               usuario.SenhaHash,
+               usuario.Username,
+               usuario.Ativo,
+               usuario.DataCriacao
+           );*/
+            return Task.FromResult(usuario);
         }
 
         public Task<Usuario> GetByIdAsync(Guid id)
         {
             var usuario = _context.Usuarios.Find(id);
-             var formatUser = new Usuario(
-                usuario.Nome,
-                usuario.Email,
-                usuario.SenhaHash,
-                usuario.Username,
-                usuario.Ativo,
-                usuario.DataCriacao
-            );
-            return Task.FromResult(formatUser);
+            /*var formatUser = new Usuario(
+                usuario.Id,
+               usuario.Nome,
+               usuario.Email,
+               usuario.SenhaHash,
+               usuario.Username,
+               usuario.Ativo,
+               usuario.DataCriacao
+           );*/
+            return Task.FromResult(usuario);
         }
 
         public Task<Usuario> GetByUsernameAsync(string username)
         {
             var usuario = _context.Usuarios.FirstOrDefault(u => u.Username == username);
-            var formatUser = new Usuario(
+            /*var formatUser = new Usuario(
+                usuario.Id,
                 usuario.Nome,
                 usuario.Email,
                 usuario.SenhaHash,
                 usuario.Username,
                 usuario.Ativo,
                 usuario.DataCriacao
-            );
-            return Task.FromResult(formatUser);
+            );*/
+            return Task.FromResult(usuario);
         }
 
         public Task UpdateAsync(Usuario usuario)

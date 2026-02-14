@@ -12,9 +12,9 @@ namespace Vestigia.Domain.Entities
         public bool Ativo {get; private set;}
         public DateTime DataCriacao {get; private set;}
 
-        public Usuario(Nome nome, Email email, string senha, string username, bool ativo, DateTime data)
+        public Usuario(Guid id, Nome nome, Email email, string senha, string username, bool ativo, DateTime data)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             Nome = nome;
             Email = email;
             SenhaHash = senha;
@@ -22,6 +22,16 @@ namespace Vestigia.Domain.Entities
             Ativo = ativo;
             DataCriacao = data;
         }
+
+        public void AtualizarUsuario(Nome nome, Email email, string senha, string username, bool ativo)
+        {
+            Nome = nome;
+            Email = email;
+            SenhaHash = senha;
+            Username = username;
+            Ativo = ativo;
+        }
+
         public ICollection<Conta> Contas { get; set; }
         public ICollection<RelatorioIA> Relatorios { get; set; }
         public ICollection<Alerta> Alertas { get; set; }

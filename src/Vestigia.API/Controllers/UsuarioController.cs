@@ -119,7 +119,8 @@ namespace Vestigia.API.Controllers
         {
             try
             {
-                _usuarioUC.Delete(id);
+                var formatId = new Guid(id.ToString());
+                _usuarioUC.Delete(formatId);
                 return Ok($"Delete usuario with id {id}");
             }
             catch (Exception ex)

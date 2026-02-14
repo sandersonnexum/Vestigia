@@ -73,7 +73,7 @@ namespace Vestigia.Application.UseCases.ContaUC
             await _contaRepository.AddAsync(novaConta);
         }
 
-        public async Task UpdateContaAsync(Guid idUsuario, Guid id, ContaDTO.RequestAddUpConta conta)
+        public async Task UpdateContaAsync(Guid id, ContaDTO.RequestAddUpConta conta)
         {
             var contaExistente = await _contaRepository.GetByIdAsync(id);
             if (contaExistente == null)
@@ -94,6 +94,32 @@ namespace Vestigia.Application.UseCases.ContaUC
         public async Task DeleteContaAsync(Guid id)
         {
             await _contaRepository.DeleteAsync(id);
+        }
+
+        public async Task<ContaDTO.ResponseConta> GetContaByNumeroAsync(string numero)
+        {
+            var conta = await _contaRepository.GetByNumeroAsync(numero);
+            if (conta == null)
+            {
+                return null;
+            }
+            var formartConta = new Conta(
+                conta.IdUsuario,
+                conta.NomeConta,
+                conta.Saldo,
+                conta.SaldoInicial,
+                conta.NumeroConta,
+                conta.Tipo
+            );
+            var erro = new ErroDTO
+            ("Sucesso", 
+            "Conta encontrada com sucesso", 
+            200);
+            return new ContaDTO.ResponseConta
+            {
+                Conta = formartConta,
+                Erro = erro
+            };
         }
     }
 }

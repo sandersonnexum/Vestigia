@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Vestigia.Domain.Entities;
 using Vestigia.Domain.Interfaces;
 using Vestigia.Infrastructure.Data;
@@ -34,13 +35,20 @@ namespace Vestigia.Infrastructure.Repositories
 
         public Task UpdateAsync(Conta conta)
         {
-            throw new NotImplementedException();
+            _context.Contas.Update(conta);
+            return _context.SaveChangesAsync();
         }
 
         public Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var conta = _context.Contas.FirstOrDefaultAsync(c => c.Id == id);
+            _context.Contas.Remove(conta.Result);
+            return _context.SaveChangesAsync();
         }
 
+        public Task<Conta> GetByNumeroAsync(string numero)
+        {
+            return _context.Contas.FirstOrDefaultAsync(c => c.NumeroConta == numero);
+        }
     }
 }

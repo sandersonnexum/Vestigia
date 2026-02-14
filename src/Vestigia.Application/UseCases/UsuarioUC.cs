@@ -23,6 +23,7 @@ namespace Vestigia.Application.UseCases.UsuarioUC
         {
             var usuario = _usuarioRepository.GetByIdAsync(id);
             var formatUser = new Usuario(
+                usuario.Result.Id,
                usuario.Result.Nome,
                usuario.Result.Email,
                usuario.Result.SenhaHash,
@@ -46,6 +47,7 @@ namespace Vestigia.Application.UseCases.UsuarioUC
         {
             var usuario = _usuarioRepository.GetByEmailAsync(email);
             var formatUser = new Usuario(
+               usuario.Result.Id,
                usuario.Result.Nome,
                usuario.Result.Email,
                usuario.Result.SenhaHash,
@@ -69,6 +71,7 @@ namespace Vestigia.Application.UseCases.UsuarioUC
         {
             var usuario = _usuarioRepository.GetByUsernameAsync(username);
             var formatUser = new Usuario(
+                usuario.Result.Id,
                usuario.Result.Nome,
                usuario.Result.Email,
                usuario.Result.SenhaHash,
@@ -92,8 +95,10 @@ namespace Vestigia.Application.UseCases.UsuarioUC
         {
             var usuarios = _usuarioRepository.GetAllAsync();
             var listUser = new List<Usuario>();
-            foreach (var usuario in usuarios.Result)            {
+            foreach (var usuario in usuarios.Result)
+            {
                 var formatUser = new Usuario(
+                    usuario.Id,
                     usuario.Nome,
                     usuario.Email,
                     usuario.SenhaHash,
@@ -120,6 +125,7 @@ namespace Vestigia.Application.UseCases.UsuarioUC
             var nome = new Nome(usuario.Nome);
             var email = new Email(usuario.Email);
             var newUsuario = new Usuario(
+                Guid.NewGuid(),
                 nome,
                 email,
                 usuario.Senha,
@@ -144,24 +150,17 @@ namespace Vestigia.Application.UseCases.UsuarioUC
         public async Task<UsuarioDTO.ResponseUsuario> Update(Guid id, UsuarioDTO.RequestAddUpdateUsuario usuario)
         {
             var existingUsuario = await _usuarioRepository.GetByIdAsync(id);
-            if (existingUsuario == null)
-            {
-                throw new Exception($"Usuario with id {id} not found");
-            }
-            var nome = new Nome(usuario.Nome);
-            var email = new Email(usuario.Email);
-            existingUsuario = new Usuario(
-                nome,
-                email,
+            existingUsuario.AtualizarUsuario(
+                new Nome(usuario.Nome),
+                new Email(usuario.Email),
                 usuario.Senha,
                 usuario.Username,
-                usuario.Ativo,
-                usuario.DataCriacao
+                usuario.Ativo
             );
             await _usuarioRepository.UpdateAsync(existingUsuario);
             var error = new ErroDTO(
                 mensagem: usuario == null ? "Usuario not found" : "Success",
-                detalhes: usuario == null ? $"No user found with id {id}" : "Usuario atualizado com sucesso",
+                detalhes: usuario == null ? $"No user found with id {id}" : "Usuario updated successfully",
                 codigo: usuario == null ? 404 : 200
             );
             return new UsuarioDTO.ResponseUsuario
@@ -169,6 +168,7 @@ namespace Vestigia.Application.UseCases.UsuarioUC
                 Usuario = existingUsuario,
                 Erro = error
             };
+
         }
 
         public async Task<UsuarioDTO.ResponseDeleteUsuario> Delete(Guid id)
